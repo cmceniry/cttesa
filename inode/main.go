@@ -23,5 +23,5 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Inode: %d", ino)
+	fmt.Printf("Inode: %d\n", ino)
 }
