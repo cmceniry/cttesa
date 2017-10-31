@@ -13,9 +13,10 @@ type config struct {
 func main() {
 	// Existing map[string]interface
 	existingMap := map[string]interface{}{
-	...
+		"Name":  "Parameter1",
+		"Value": 100,
 	}
-	em, err := json.MarshalIndent(..., "", "  ")
+	em, err := json.MarshalIndent(existingMap, "", "  ")
 	if err != nil {
 		panic(err)
 	}
@@ -24,7 +25,8 @@ func main() {
 
 	// Inline map[string]interface
 	im, err := json.MarshalIndent(map[string]interface{}{
-		...
+		"Name":  "Parameter1",
+		"Value": 100,
 	}, "", "  ")
 	if err != nil {
 		panic(err)
@@ -34,9 +36,10 @@ func main() {
 
 	// Existing Struct
 	existingConf := config{
-		...
+		Name:  "Parameter1",
+		Value: 100,
 	}
-	es, err := json.MarshalIndent(..., "", "  ")
+	es, err := json.MarshalIndent(existingConf, "", "  ")
 	if err != nil {
 		panic(err)
 	}
@@ -45,9 +48,11 @@ func main() {
 
 	// Inline Struct
 	is, err := json.MarshalIndent(struct {
-		...
+		Name  string
+		Value int64
 	}{
-		...
+		"Parameter1",
+		100,
 	}, "", "  ")
 	if err != nil {
 		panic(err)

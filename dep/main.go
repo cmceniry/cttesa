@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	...
+	"github.com/mitchellh/mapstructure"
 )
 
 func main() {
@@ -15,6 +15,6 @@ func main() {
 		"Name":  "Property1",
 		"Value": 100,
 	}
-	...
+	mapstructure.Decode(cm, &cs)
 	fmt.Printf("%s=%d\n", cs.Name, cs.Value)
 }

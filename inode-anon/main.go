@@ -21,5 +21,18 @@ func getInode(path string) (uint64, error) {
 
 func main() {
 	prefix := "FOUND:"
-	filepath.Walk(".", ...)
+	filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return filepath.SkipDir
+		}
+		if info.IsDir() {
+			return nil
+		}
+		ino, err := getInode(path)
+		if err != nil {
+			return err
+		}
+		fmt.Printf("%s %s = %d\n", prefix, path, ino)
+		return nil
+	})
 }

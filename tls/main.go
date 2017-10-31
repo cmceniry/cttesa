@@ -28,7 +28,7 @@ func generateTLSCert() (*tls.Certificate, error) {
 		},
 	}
 	t.BasicConstraintsValid = true
-	...
+	c, err := x509.CreateCertificate(rand.Reader, &t, &t, &k.PublicKey, k)
 	if err != nil {
 		return nil, err
 	}
@@ -40,7 +40,7 @@ func generateTLSCert() (*tls.Certificate, error) {
 		Type:  "RSA PRIVATE KEY",
 		Bytes: x509.MarshalPKCS1PrivateKey(k),
 	})
-	...
+	tlsCert, err := tls.X509KeyPair(certPem, keyPem)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,12 @@ func main() {
 		panic(err)
 	}
 	http.Handle("/", http.FileServer(http.Dir(".")))
-	s := http.Server{...}
+	s := http.Server{
+		Addr: "localhost:8443",
+		TLSConfig: &tls.Config{
+			Certificates: []tls.Certificate{*tlsCert},
+		},
+	}
 	err = s.ListenAndServeTLS("", "")
 	if err != nil {
 		panic(err)

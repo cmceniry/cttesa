@@ -1,4 +1,4 @@
-//go:generate ...
+//go:generate go-bindata-assetfs data/
 
 package main
 
@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	http.Handle("/", ...)
+	http.Handle("/", http.FileServer(assetFS()))
 	fmt.Println("Listening on :8080")
 	http.ListenAndServe(":8080", nil)
 }

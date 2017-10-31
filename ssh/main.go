@@ -48,11 +48,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	err = session.Start(...)
+	err = session.Start("cat > copy.txt")
 	if err != nil {
 		panic(err)
 	}
-	...
+	io.Copy(sin, os.Stdin)
 	sin.Close()
 	session.Wait()
 }
