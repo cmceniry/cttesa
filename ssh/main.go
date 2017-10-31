@@ -2,15 +2,14 @@ package main
 
 import (
 	"io"
-	"os"
-	"fmt"
 	"io/ioutil"
+	"os"
 
 	"golang.org/x/crypto/ssh"
 )
 
-func getKey() (ssh.Signer) {
-	keyFile := "/home/vagrant/.ssh/id_rsa"
+func getKey() ssh.Signer {
+	keyFile := "/home/got/.ssh/id_rsa"
 	pemKey, err := ioutil.ReadFile(keyFile)
 	if err != nil {
 		panic(err)
@@ -24,8 +23,8 @@ func getKey() (ssh.Signer) {
 
 func connect(host string, signer ssh.Signer) *ssh.Client {
 	config := &ssh.ClientConfig{
-		User: "vagrant",
-		Auth: []ssh.AuthMethod{ssh.PublicKeys(signer)},
+		User:            "got",
+		Auth:            []ssh.AuthMethod{ssh.PublicKeys(signer)},
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
 
@@ -54,5 +53,6 @@ func main() {
 		panic(err)
 	}
 	...
+	sin.Close()
 	session.Wait()
 }
