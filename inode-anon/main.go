@@ -20,6 +20,6 @@ func getInode(path string) (uint64, error) {
 }
 
 func main() {
-	prefix := "FOUND: "
+	prefix := "FOUND:"
 	filepath.Walk(".", ...)
 }
